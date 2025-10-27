@@ -1,7 +1,6 @@
 name: Deploy to GitHub Pages
 
 on:
-  # 你可以先只用手动触发，跑通后再保留 push 触发
   workflow_dispatch:
   push:
     branches: [ main ]
@@ -11,7 +10,6 @@ permissions:
   pages: write
   id-token: write
 
-# 保证同一个仓库同时只跑一个部署；新的会自动取消旧的
 concurrency:
   group: pages-${{ github.repository }}
   cancel-in-progress: true
@@ -21,13 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAGES: "true"
-      REPO_NAME: "dova-patbm-site"   # 和仓库名一致
+      REPO_NAME: "dova-patbm-site"   # 与仓库名一致
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # ⚠️ 不要写 cache: 'npm'，否则没有锁文件会报错
       - run: npm install
       - run: npm run build:gh
       - uses: actions/upload-pages-artifact@v3
