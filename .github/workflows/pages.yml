@@ -25,9 +25,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          # 不要写 cache: 'npm'（你暂无锁文件）
-      - run: npm install
-      - run: npm run build:gh
+      - name: Install deps
+        run: npm install --no-audit --no-fund
+      - name: Ensure Next is present (safety)
+        run: npx --yes next --version
+      - name: Build & export
+        run: npm run build:gh
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
