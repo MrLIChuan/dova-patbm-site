@@ -19,13 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAGES: "true"
-      REPO_NAME: "dova-patbm-site"   # 与仓库名一致
+      REPO_NAME: "dova-patbm-site"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          # 注意：这里不要写 cache: 'npm'（你没有锁文件）
+          # 不要写 cache: 'npm'（你暂无锁文件）
       - run: npm install
       - run: npm run build:gh
       - uses: actions/upload-pages-artifact@v3
