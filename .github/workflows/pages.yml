@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          # ⚠️ 不要写 cache: 'npm'，否则没有锁文件会报错
+          # 注意：这里不要写 cache: 'npm'（你没有锁文件）
       - run: npm install
       - run: npm run build:gh
       - uses: actions/upload-pages-artifact@v3
